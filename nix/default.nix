@@ -23,7 +23,7 @@
   doCheck ? false,
   debug ? false,
 }: let
-  inherit (builtins) foldl';
+  inherit (builtins) foldl' path;
   inherit (lib.lists) flatten;
 
   adapters = flatten [
@@ -36,7 +36,10 @@ in
   customStdenv.mkDerivation {
     pname = "aquamarine";
     inherit version doCheck;
-    src = ../.;
+    src = path {
+      path = ../.;
+      name = "source";
+    };
 
     strictDeps = true;
 
